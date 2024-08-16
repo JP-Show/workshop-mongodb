@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import io.drezzy.workshopmongo.domain.User;
 import io.drezzy.workshopmongo.repository.UserRepository;
+import io.drezzy.workshopmongo.services.exception.ObjectNotFoundException;
 
 //O serviço acessa o reposítorio
 @Service
@@ -19,5 +20,8 @@ public class UserService {
 
     public List<User> findAll(){
         return repo.findAll();
+    }
+    public User findById(String id){
+        return repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found"));
     }
 }
