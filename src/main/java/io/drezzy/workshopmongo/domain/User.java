@@ -2,9 +2,19 @@ package io.drezzy.workshopmongo.domain;
 
 import java.io.Serializable;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+/*Para dizer que esta classe está relacionada
+ * com um documento lá no mongoDB
+ * Um adendo, se por acaso não colocar o "collection = user" o spring
+ * automáticamente vai colocar o nome da classe só que em letra minuscula
+ * que serve para gente no nosso caso
+*/
+@Document
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     
+    @Id
     private String id;
     private String name;
     private String email;
