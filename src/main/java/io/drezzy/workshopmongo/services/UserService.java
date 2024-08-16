@@ -22,13 +22,22 @@ public class UserService {
     public List<User> findAll(){
         return repo.findAll();
     }
+    
     public User findById(String id){
         return repo.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found"));
     }
+
     public User insert(User user){
         return repo.insert(user);
     }
+
+    public void delete(String id){
+        findById(id);
+        repo.deleteById(id);
+    }
+
     public User fromDTO(UserDTO objDto){
         return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
     }
+
 }

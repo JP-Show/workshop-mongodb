@@ -31,16 +31,24 @@ public class UserResource {
         List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok(listDTO);
     }
+
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<UserDTO> findbyId(@PathVariable String id){
         User user = service.findById(id);
         return ResponseEntity.ok(new UserDTO(user));
     }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@RequestBody UserDTO objDto){
         User user = service.fromDTO(objDto);
         user = service.insert(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public ResponseEntity<UserDTO> delete(@PathVariable String id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
