@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import dto.AuthorDTO;
 import io.drezzy.workshopmongo.domain.Post;
 import io.drezzy.workshopmongo.domain.User;
 import io.drezzy.workshopmongo.repository.PostRepository;
@@ -34,10 +35,11 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, dateFormat.parse("02/10/2019"), "LES'T ROLL TO THE BEACH", "Nobody wants to go to the beach", maria);
-        Post post2 = new Post(null, dateFormat.parse("02/10/2019"), "How to make a sandwich", "For a kid, it's easy", alex);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+        
+        Post post1 = new Post(null, dateFormat.parse("02/10/2019"), "LES'T ROLL TO THE BEACH", "Nobody wants to go to the beach", new AuthorDTO(maria));
+        Post post2 = new Post(null, dateFormat.parse("02/10/2019"), "How to make a sandwich", "For a kid, it's easy", new AuthorDTO(alex));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
     }
     
